@@ -10,7 +10,7 @@ export interface IProduct {
   rating: { rate: number; count: number };
 }
 
-export interface IStocks {
+export interface IStock {
   product_id: string;
   count: number;
 }
@@ -51,3 +51,5 @@ export const ErrorSchema = {
     },
   },
 };
+
+export type AvailableProduct = IStock & IProduct;
