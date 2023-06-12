@@ -2,14 +2,12 @@ import { JsonSchemaType } from "aws-cdk-lib/aws-apigateway";
 
 export interface IProduct {
     id: string,
-    name: string,
+    title: string,
+    price: number,
     description: string,
-    features: string,
-    price: string,
-    keywords: string,
-    url: string,
     category: string,
-    subcategory: string
+    image: string,
+    rating: {rate: number, count: number}
 }
 
 export type GetProductsByIdEvent = {

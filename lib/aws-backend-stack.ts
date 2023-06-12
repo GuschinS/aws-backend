@@ -1,88 +1,89 @@
-import * as cdk from 'aws-cdk-lib';
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as apigw from 'aws-cdk-lib/aws-apigateway';
-import { Construct } from 'constructs';
-import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
-import { ErrorSchema, ProductListSchema, ProductSchema } from '../src/models';
-import { CORS_PREFLIGHT_SETTINGS } from '../src/utils';
-
+import * as cdk from "aws-cdk-lib";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as apigw from "aws-cdk-lib/aws-apigateway";
+import { Construct } from "constructs";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { ErrorSchema, ProductListSchema, ProductSchema } from "../src/models";
+import { CORS_PREFLIGHT_SETTINGS } from "../src/utils";
 
 export class NodejsAwsShopApiStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-    const getProductsList = new NodejsFunction(this, 'GetProductsListHandler', {
-      functionName: 'getProductsList',
+    const getProductsList = new NodejsFunction(this, "GetProductsListHandler", {
+      functionName: "getProductsList",
       runtime: lambda.Runtime.NODEJS_18_X,
-      entry: './src/handlers/get-products-list.ts'
+      entry: "./src/handlers/get-products-list.ts",
     });
 
-    const getProductsById = new NodejsFunction(this, 'GetProductsByIdHandler', {
-      functionName: 'getProductId',
+    const getProductsById = new NodejsFunction(this, "GetProductsByIdHandler", {
+      functionName: "getProductId",
       runtime: lambda.Runtime.NODEJS_18_X,
-      entry: './src/handlers/get-product-id.ts'
+      entry: "./src/handlers/get-product-id.ts",
     });
 
-    const api = new apigw.RestApi(this, 'products-api', {
+    const api = new apigw.RestApi(this, "products-api", {
       restApiName: "Products Service",
-      description: "This service serves products."
+      description: "This service serves products.",
     });
 
-    const productModel = api.addModel('ProductModel', {
-      modelName: 'ProductModel',
-      schema: ProductSchema
+    const productModel = api.addModel("ProductModel", {
+      modelName: "ProductModel",
+      schema: ProductSchema,
     });
 
-    const productListModel = api.addModel('ProductListModel', {
-      modelName: 'ProductListModel',
-      schema: ProductListSchema
+    const productListModel = api.addModel("ProductListModel", {
+      modelName: "ProductListModel",
+      schema: ProductListSchema,
     });
 
-    const errorModel = api.addModel('ErrorModel', {
-      modelName: 'ErrorModel',
-      schema: ErrorSchema
+    const errorModel = api.addModel("ErrorModel", {
+      modelName: "ErrorModel",
+      schema: ErrorSchema,
     });
 
     const getProductsIntegration = new apigw.LambdaIntegration(getProductsList);
-    const getProductsByIdIntegration = new apigw.LambdaIntegration(getProductsById);
+    const getProductsByIdIntegration = new apigw.LambdaIntegration(
+      getProductsById
+    );
 
-    const productsApi = api.root.addResource('products');
-    const productIdApi = productsApi.addResource('{productId}');
+    const productsApi = api.root.addResource("products");
+    const productIdApi = productsApi.addResource("{productId}");
 
     productsApi.addCorsPreflight(CORS_PREFLIGHT_SETTINGS);
     productIdApi.addCorsPreflight(CORS_PREFLIGHT_SETTINGS);
 
-    productsApi.addMethod('GET', getProductsIntegration, {
+    productsApi.addMethod("GET", getProductsIntegration, {
       methodResponses: [
         {
-          statusCode: '200',
+          statusCode: "200",
           responseModels: {
-            'application/json': productListModel
-          }
+            "application/json": productListModel,
+          },
         },
         {
-          statusCode: '404',
+          statusCode: "404",
           responseModels: {
-            'application/json': errorModel
-          }
-        }
-      ]
+            "application/json": errorModel,
+          },
+        },
+      ],
     });
 
-    productIdApi.addMethod('GET', getProductsByIdIntegration, {
+    productIdApi.addMethod("GET", getProductsByIdIntegration, {
       methodResponses: [
         {
-          statusCode: '200',
+          statusCode: "200",
           responseModels: {
-            'application/json': productModel
-          }
+            "application/json": productModel,
+          },
         },
         {
-          statusCode: '404',
+          statusCode: "404",
           responseModels: {
-            'application/json': errorModel
-          }
-        }
-      ]
+            "application/json": errorModel,
+          },
+        },
+      ],
     });
   }
 }

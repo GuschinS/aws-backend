@@ -1,12 +1,20 @@
-import ProductsFunction from '../products-service';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { buildResponse } from '../utils';
+import * as AWS from 'aws-sdk';
 
-export const handler = async () => {
+const TABLE_NAME = process.env.TABLE_NAME || '';
+
+const db = new AWS.DynamoDB.DocumentClient();
+
+export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    const params = {
+        TableName: TABLE_NAME
+    };
+
     try {
-        const products = await ProductsFunction.getProducts();
-        return buildResponse(200, products);
-    }
-    catch ({ error, message }) {
-        return buildResponse(error || 404, { message: message || 'Unable to get products list.' });
+        const response = await db.scan(params).promise();
+        return buildResponse(200, response.Items)
+    } catch (dbError) {
+        return buildResponse(500, dbError)
     }
 };
