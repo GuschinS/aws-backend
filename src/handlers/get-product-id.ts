@@ -1,30 +1,38 @@
 import * as AWS from "aws-sdk";
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { buildResponse } from "../utils";
-// import { GetProductsByIdEvent } from "../models";
-// import ProductsService from "../products-service";
-// const TABLE_NAME = process.env.TABLE_NAME;
-// const PRIMARY_KEY = process.env.PRIMARY_KEY;
-const db = new AWS.DynamoDB.DocumentClient();
 
-export const handler = async (
-  event: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> => {
-  const requestedItemId = event.pathParameters?.product;
-  console.log("event.pathParameters", event.pathParameters?.product);
+const dynamo = new AWS.DynamoDB.DocumentClient();
+const queryProducts = async (id) => {
+  return await dynamo
+    .query({
+      TableName: process.env.PRODUCTS_TABLE_NAME,
+      KeyConditionExpression: "id = :id",
+      ExpressionAttributeValues: { ":id": id },
+    })
+    .promise();
+};
+const queryStocks = async (id) => {
+  return await dynamo
+    .query({
+      TableName: process.env.STOCKS_TABLE_NAME,
+      KeyConditionExpression: "product_id = :id",
+      ExpressionAttributeValues: { ":id": id },
+    })
+    .promise();
+};
+export const handler = async (event) => {
+  const requestedItemId = event.pathParameters.productId;
   if (!requestedItemId) {
     return buildResponse(400, `Error: You are missing the path parameter id`);
   }
-  const params = {
-    TableName: "products",
-    Key: {
-      id: requestedItemId,
-    },
-  };
+  const queryResults = await queryProducts(requestedItemId);
+  const queryResultsStocks = await queryStocks(requestedItemId);
+  console.log(queryResultsStocks);
   try {
-    const response = await db.get(params).promise();
-    if (response.Item) {
-      return buildResponse(200, response.Item);
+    if (queryResults.Items && queryResultsStocks.Items) {
+      queryResults.Items[0].count = queryResultsStocks.Items[0].count;
+
+      return buildResponse(200, queryResults.Items);
     } else {
       return buildResponse(404, "Product not found");
     }
