@@ -9,6 +9,7 @@ const db = new AWS.DynamoDB.DocumentClient();
 export const handler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
+  console.log("getProductsListEvent:", JSON.stringify(event));
   try {
     const scanParams = {
       TableName: PRODUCTS_TABLE_NAME,
@@ -19,7 +20,6 @@ export const handler = async (
 
     for (const item of firstTableItems) {
       const id = item.id;
-
       const queryParams = {
         TableName: STOCKS_TABLE_NAME,
         KeyConditionExpression: "product_id = :id",
@@ -38,10 +38,7 @@ export const handler = async (
       }
     }
     return buildResponse(200, secondTableItems);
-  } catch (error) {
-    return {
-      statusCode: 500,
-      body: "Ошибка получения данных.",
-    };
+  } catch (dbError) {
+    return { statusCode: 500, body: JSON.stringify(dbError) };
   }
 };

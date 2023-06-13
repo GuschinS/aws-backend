@@ -2,7 +2,7 @@ import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { marshall } from "@aws-sdk/util-dynamodb";
 import { PRODUCTS, STOCKS } from "./products";
 
-const REGION = "eu-west-1"; // Update with your desired AWS region
+const REGION = "eu-west-1";
 
 const client = new DynamoDBClient({ region: REGION });
 

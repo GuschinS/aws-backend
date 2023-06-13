@@ -21,6 +21,7 @@ const queryStocks = async (id) => {
     .promise();
 };
 export const handler = async (event) => {
+  console.log("getProductIdEvent:", JSON.stringify(event));
   const requestedItemId = event.pathParameters.productId;
   if (!requestedItemId) {
     return buildResponse(400, `Error: You are missing the path parameter id`);
@@ -31,7 +32,6 @@ export const handler = async (event) => {
   try {
     if (queryResults.Items && queryResultsStocks.Items) {
       queryResults.Items[0].count = queryResultsStocks.Items[0].count;
-
       return buildResponse(200, queryResults.Items);
     } else {
       return buildResponse(404, "Product not found");

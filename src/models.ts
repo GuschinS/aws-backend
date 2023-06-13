@@ -10,16 +10,16 @@ export interface IProduct {
   rating: { rate: number; count: number };
 }
 
-export interface IStock {
+export interface IStocks {
   product_id: string;
   count: number;
 }
 
-export type GetProductsByIdEvent = {
-  pathParameters: {
-    productId: string;
-  };
-};
+// export type GetProductsByIdEvent = {
+//   pathParameters: {
+//     productId: string;
+//   };
+// };
 
 const PRODUCT_PROPERTIES = {
   id: { type: JsonSchemaType.STRING },
@@ -52,4 +52,4 @@ export const ErrorSchema = {
   },
 };
 
-export type AvailableProduct = IStock & IProduct;
+// export type AvailableProduct = IStocks & IProduct;
