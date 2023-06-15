@@ -9,7 +9,7 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "db:write": "aws dynamodb batch-write-item --request-items file://src/data.json"
+    "db:write": "npx ts-node src/fill-tables.ts"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.117",
