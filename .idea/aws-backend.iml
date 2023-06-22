@@ -5,6 +5,23 @@
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.e2b7fcd335418ff8b0eaf12902975052f5fa8e98e402017b6b11ef9658bb7fdd" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.e40d50eb54107610e1b975cd96ef58f1abc2913418c3b6121f77eb60627e8dfd" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.e7471f056e0404093fd3c5054886885b42a8df95c13717fbae6f1ad67ddb10f6" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.e13264b692422ee1f5c85a5b60f86c4e4bce575e3275ce6d5d40263faf49c730" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.eead42fc76fce400ab1d69a4baa133fe8f465b82bb88be4b8e0f9daeda9cd70c" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.f2acc0210911b913f0fb6b658b617085a8ff627ef0d47beda1408575a7673757" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.f4ce4e374f90a21d15526d4b26f08ea753d77fb30e18c5ee38cc302dd7f9d68d" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.f410a6424e42bed654bf628dbe766763dd8715e43e63abdb3026a6a2032e76d5" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.f739cfe6639e1fa222fd064369adfcf4d1fe7b8c08890350f533cd5edf7b4df4" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.f71129a1a56a9f2374d5216cb783357d257d2b210d3fd595222b46f96ca8298f" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.f4218933d658afe623f9c4e53d5ac61bdfb780da29b65664918dd29ce2912995" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.fa765607e30cfaa54a7c4408932dd4d261c1aa6284174708bc647bf5eb124f8b" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.fcf9fee69fe2007e30afd0764a693d23ee45ac099aba50a7e8b40e47904e28fa" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.fdcafb9cfa17d7c2d418f41111c6348f2eca4b2bf9b9bd80f136fdc4919b48e2" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/asset.fddb15406077f5af7a4bba8efc020299b7a375888679fdae9c87158a5d0e051d" />
+      <excludeFolder url="file://$MODULE_DIR$/cdk.out/bundling-temp-9f076dfd1cb6725ae6f6b617087502b4fe8f9b73db00ddd7cb1b46f9030cfff0-error" />
+      <excludeFolder url="file://$MODULE_DIR$/product-service/cdk.out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

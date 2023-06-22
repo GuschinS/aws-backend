@@ -1,8 +1,8 @@
 {
-  "name": "aws-backend",
+  "name": "import-service",
   "version": "0.1.0",
   "bin": {
-    "aws-backend": "bin/aws-backend.js"
+    "import-service": "bin/import-service.js"
   },
   "scripts": {
     "build": "tsc",
